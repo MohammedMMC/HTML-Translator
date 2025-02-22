@@ -3,6 +3,7 @@ const path = require('path');
 const cheerio = require('cheerio');
 
 const languages = ["en", "ar", "tr"];
+const remove_functions = false;
 
 (async () => {
     try {
@@ -14,7 +15,7 @@ const languages = ["en", "ar", "tr"];
             .filter((_, { type, data }) =>
                 type === 'text' &&
                 (data = data.trim()) &&
-                !/function|=>/.test(data)
+                (!remove_functions || !(/function.*[{}/].*=>/.test(data)))
             )
             .map((_, { data }) => data.trim())
             .get())];
