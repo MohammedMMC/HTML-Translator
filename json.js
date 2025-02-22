@@ -15,7 +15,7 @@ const remove_functions = false;
             .filter((_, { type, data }) =>
                 type === 'text' &&
                 (data = data.trim()) &&
-                (!remove_functions || !(/function.*[{}/].*=>/.test(data)))
+                (!remove_functions || !(/function.*[{}/]/.test(data)))
             )
             .map((_, { data }) => data.trim())
             .get())];
