@@ -14,7 +14,7 @@ const languages = ["en", "ar", "tr"];
             .filter((_, { type, data }) =>
                 type === 'text' &&
                 (data = data.trim()) &&
-                !/[{}/]|function|=>/.test(data)
+                !/function|=>/.test(data)
             )
             .map((_, { data }) => data.trim())
             .get())];
