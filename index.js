@@ -10,11 +10,16 @@ const cheerio = require('cheerio');
                 .then(JSON.parse)
         ]);
 
-        const translate = (text, dict) =>
-            Object.entries(dict)
-                .reduce((acc, [src, tgt]) =>
-                    acc.replace(new RegExp(`\\b${src.replace(/\W/g, '\\$&')}\\b`, 'g'), tgt),
-                    text);
+        const translate = (text, dict) => {
+            if (text.endsWith(' ') && !dict[text]) {
+                text = text.slice(0, -1);
+            }
+            if (text.startsWith(' ') && !dict[text]) {
+                text = text.slice(1);
+            }
+
+            return dict[text] || text;
+        }
 
         await fs.mkdir(path.join(__dirname, 'output'), { recursive: true });
 
